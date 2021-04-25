@@ -65,12 +65,3 @@ export default [
 ];
 
 
-const galleryContainer = document.querySelector('js-gallery');
-
-galleryContainer.addEventListener('click', onClickPicture);
-
-function onClickPicture (event) {
-  if (event.target.nodeName !== '.gallery__link') {
-    return;
-  }
-}

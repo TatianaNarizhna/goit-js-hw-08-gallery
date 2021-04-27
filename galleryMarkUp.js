@@ -29,14 +29,17 @@ const itemClose = document.querySelector('button[data-action="close-lightbox"]')
 
 galleryContainer.addEventListener('click', onClickPictureContainerOpen);
 itemClose.addEventListener('click', onCloseModal);
+galleryOverlay.addEventListener('click', onCloseModal);
 
+let element;
 
 function onClickPictureContainerOpen (event) {
+  event.preventDefault();
 
-  if( !event.target.classList.contains('.gallery__image')) {
+  if( !event.target.classList.contains('gallery__image')) {
     return;
   }
-
+  window.addEventListener('keydown', onEscClose);
     lightboxEl.classList.add('is-open'); 
      lightboxElImg.src = event.target.dataset.source;
      lightboxElImg.alt = event.target.alt;
@@ -44,20 +47,25 @@ function onClickPictureContainerOpen (event) {
 
 }
 
-
 function onCloseModal(event) {
-
-  if(event.target.nodeName === '.gallery__item') {
+  window.removeEventListener('keydown', onEscClose);
 
     lightboxEl.classList.remove('is-open');
     lightboxElImg.src = '';
     lightboxElImg.alt = '';
+}
 
+function onEscClose(event) {
+
+if(event.code === 'Escape') {
+  onCloseModal();
   }
 }
 
-galleryOverlay.addEventListener('click', onCloseModal);
 
 
+
+// "ArrowRight"
+// "ArrowLeft"
 
 

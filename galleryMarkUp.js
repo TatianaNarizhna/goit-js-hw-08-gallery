@@ -24,8 +24,8 @@ const lightboxEl = document.querySelector('.lightbox');
 const lightboxElImg = document.querySelector('.lightbox__image');
 const galleryOverlay = document.querySelector('.lightbox__overlay');
 
-const galleryItem = document.querySelector('gallery__item');
-const itemClose = document.querySelector('[data-action="close-lightbox"]');
+const galleryItem = document.querySelector('.gallery__item');
+const itemClose = document.querySelector('button[data-action="close-lightbox"]');
 
 galleryContainer.addEventListener('click', onClickPictureContainerOpen);
 itemClose.addEventListener('click', onCloseModal);
@@ -33,28 +33,30 @@ itemClose.addEventListener('click', onCloseModal);
 
 function onClickPictureContainerOpen (event) {
 
-     if(!event.target.classList.contains('.gallery__item')) {
-         return;
-     }
+  if( !event.target.classList.contains('.gallery__image')) {
+    return;
+  }
 
-     lightboxEl.classList.add('is-open'); 
+    lightboxEl.classList.add('is-open'); 
      lightboxElImg.src = event.target.dataset.source;
      lightboxElImg.alt = event.target.alt;
+   
 
 }
 
 
 function onCloseModal(event) {
 
-  if(event.target.nodeName === 'button') {
-    lightboxEl.classList.remove('is-open'); 
+  if(event.target.nodeName === '.gallery__item') {
+
+    lightboxEl.classList.remove('is-open');
     lightboxElImg.src = '';
     lightboxElImg.alt = '';
 
   }
 }
 
-
+galleryOverlay.addEventListener('click', onCloseModal);
 
 
 

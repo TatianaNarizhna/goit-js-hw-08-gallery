@@ -40,6 +40,7 @@ function onClickPictureContainerOpen (event) {
     return;
   }
   window.addEventListener('keydown', onEscClose);
+  // window.addEventListener('keydown', onArrowNext);
     lightboxEl.classList.add('is-open'); 
      lightboxElImg.src = event.target.dataset.source;
      lightboxElImg.alt = event.target.alt;
@@ -49,6 +50,7 @@ function onClickPictureContainerOpen (event) {
 
 function onCloseModal(event) {
   window.removeEventListener('keydown', onEscClose);
+  // window.removeEventListener('keydown', onArrowNext);
 
     lightboxEl.classList.remove('is-open');
     lightboxElImg.src = '';
@@ -62,10 +64,13 @@ if(event.code === 'Escape') {
   }
 }
 
+// let arrowRight = 'ArrowRight';
+// let arrowLeft = 'ArrowLeft';
 
 
 
-// "ArrowRight"
-// "ArrowLeft"
+
+
+
 
 

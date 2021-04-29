@@ -40,7 +40,7 @@ function onClickPictureContainerOpen (event) {
     return;
   }
   window.addEventListener('keydown', onEscClose);
-  // window.addEventListener('keydown', onArrowNext);
+  window.addEventListener('keydown', onArrowNext);
     lightboxEl.classList.add('is-open'); 
      lightboxElImg.src = event.target.dataset.source;
      lightboxElImg.alt = event.target.alt;
@@ -50,7 +50,7 @@ function onClickPictureContainerOpen (event) {
 
 function onCloseModal(event) {
   window.removeEventListener('keydown', onEscClose);
-  // window.removeEventListener('keydown', onArrowNext);
+  window.removeEventListener('keydown', onArrowNext);
 
     lightboxEl.classList.remove('is-open');
     lightboxElImg.src = '';
@@ -64,9 +64,21 @@ if(event.code === 'Escape') {
   }
 }
 
-// let arrowRight = 'ArrowRight';
-// let arrowLeft = 'ArrowLeft';
+function onArrowNext (event) {
+  const imgArreyMove = gallery.map(image => image.original);
+  const imgCurrentIndex = imgArreyMove.indexOf(lightboxElImg.src);
 
+  if(event.code === 'ArrowRight') {
+    if (imgCurrentIndex < imgArreyMove.length - 1)
+    lightboxElImg.src = imgArreyMove[Number(imgCurrentIndex) + 1];
+  }
+
+  if(event.code === 'ArrowLeft') {
+    if (imgCurrentIndex > 0 ) {
+      lightboxElImg.src = imgArreyMove[Number(imgCurrentIndex) -1 ];
+    }
+  }
+}
 
 
 

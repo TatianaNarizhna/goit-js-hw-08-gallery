@@ -1,5 +1,20 @@
 import gallery from './gallery-items.js';
 
+const galleryContainer = document.querySelector('.js-gallery');
+const galleryMarkup = createGalleryMarkUp (gallery);
+galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+
+const lightboxEl = document.querySelector('.lightbox');
+const lightboxElImg = document.querySelector('.lightbox__image');
+const galleryOverlay = document.querySelector('.lightbox__overlay');
+
+const itemClose = document.querySelector('button[data-action="close-lightbox"]');
+
+galleryContainer.addEventListener('click', onClickPictureContainerOpen);
+itemClose.addEventListener('click', onCloseModal);
+galleryOverlay.addEventListener('click', onOverlayClose);
+
+
 function createGalleryMarkUp (gallery) {
   return gallery
   .map(({ preview,  original, description }) => {
@@ -16,22 +31,6 @@ function createGalleryMarkUp (gallery) {
 }).join('');
 }
 
-const galleryContainer = document.querySelector('.js-gallery');
-const galleryMarkup = createGalleryMarkUp (gallery);
-galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
-
-const lightboxEl = document.querySelector('.lightbox');
-const lightboxElImg = document.querySelector('.lightbox__image');
-const galleryOverlay = document.querySelector('.lightbox__overlay');
-
-const galleryItem = document.querySelector('.gallery__item');
-const itemClose = document.querySelector('button[data-action="close-lightbox"]');
-
-galleryContainer.addEventListener('click', onClickPictureContainerOpen);
-itemClose.addEventListener('click', onCloseModal);
-galleryOverlay.addEventListener('click', onCloseModal);
-
-let element;
 
 function onClickPictureContainerOpen (event) {
   event.preventDefault();
@@ -41,11 +40,10 @@ function onClickPictureContainerOpen (event) {
   }
   window.addEventListener('keydown', onEscClose);
   window.addEventListener('keydown', onArrowNext);
-    lightboxEl.classList.add('is-open'); 
+
+     lightboxEl.classList.add('is-open'); 
      lightboxElImg.src = event.target.dataset.source;
      lightboxElImg.alt = event.target.alt;
-   
-
 }
 
 function onCloseModal(event) {
@@ -55,6 +53,12 @@ function onCloseModal(event) {
     lightboxEl.classList.remove('is-open');
     lightboxElImg.src = '';
     lightboxElImg.alt = '';
+}
+
+function onOverlayClose(event) {
+  
+  if(event.target === event.currentTarget)
+  onCloseModal();
 }
 
 function onEscClose(event) {
